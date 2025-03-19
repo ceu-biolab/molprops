@@ -26,7 +26,7 @@ Whether you're a computational chemist, bioinformatician, or just someone playin
 ## **Requirements**
 
 ✅ **An Alvadesc License is mandatory to execute the Alvadesc Descriptors or Fingerprints**
-
+✅ **AlvaDescCliWraper should be installed from AlvaDesc:** https://www.alvascience.com/python-alvadesc/
 
 ---
 
