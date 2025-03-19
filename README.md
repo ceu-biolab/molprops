@@ -23,6 +23,13 @@ Whether you're a computational chemist, bioinformatician, or just someone playin
 
 ---
 
+## **Requirements**
+
+✅ **An Alvadesc License is mandatory to execute the Alvadesc Descriptors or Fingerprints**
+
+
+---
+
 ## **🚀 Installation**
 
 ### **Install via pip**
