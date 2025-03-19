@@ -1,0 +1,33 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "molprops"
+version = "1.0.0"
+description = "Package to calculate molecular descriptors."
+authors = ["Alberto Gil de la Fuente <alberto.gilf@gmail.com>"]
+maintainers = ["Alberto Gil de la Fuente <alberto.gilf@gmail.com>"]
+license = "GPL-3.0-only"
+readme = "README.md"
+homepage = "https://github.com/ceu-biolab/molprops"
+repository = "https://github.com/ceu-biolab/molprops"
+requires-python = ">=3.10"
+classifiers=[
+    'Development Status :: 3 - Alpha',
+    'Intended Audience :: Science/Research',
+    'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',  
+    'Operating System :: POSIX :: Linux',
+    'Programming Language :: Python :: 3.10',
+]
+keywords = ["ms", "chemistry"]
+
+[tool.poetry.dependencies]
+python = ">3.9"
+rdkit = ">2023.9.5"
+requests = ">2.32.0"
+
+
+[tool.poetry.urls]
+Documentation = "https://github.com/ceu-biolab/molprops/blob/main/README.md"
+
