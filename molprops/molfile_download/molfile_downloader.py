@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-@contents : This 
+@contents : This module contains the function to download the molfile of a compound from the HMDB and PubChem database
 @project :  molprops
 @program :  CEU Mass Mediator
 @file :  classyfire_wrapper.py
@@ -21,7 +21,7 @@ import os
 import urllib
 import time
 
-from molecular_file.sdf_type import SDFType
+from molprops.molecular_file.sdf_type import SDFType
 
 def download_sdf_pubchem(pc_id, output_path, sdf_type:SDFType = SDFType.THREE_D):
     """ 

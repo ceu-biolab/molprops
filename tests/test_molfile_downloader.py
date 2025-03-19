@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-@contents :  This module contains the tests for the RDKit molfile downloaders
+@contents :  This module contains the tests for the molfile downloaders
 @project :  molprops
 @program :  CEU Mass Mediator
 @file :  classyfire_wrapper.py
@@ -23,13 +23,14 @@ import unittest
 import os
 from rdkit import Chem
 from molprops.molfile_download.molfile_downloader import download_sdf_hmdb, download_sdf_pubchem
+from molprops.molecular_file.sdf_type import SDFType
 
 class TestMolfileDownloader(unittest.TestCase):
 
     def test_download_pubchem_sdf(self):
         sdfPath = '/home/ceu/research/repos/cmm_rt_shared/SDF/3D/pubchem'
         pubchem_id = 1
-        file_path = os.path.join(self.test_dir, f"{pubchem_id}.sdf")
+        file_path = os.path.join(sdfPath, f"{pubchem_id}.sdf")
 
         expected_fp_length = 1024
         download_sdf_pubchem(1,sdfPath)
@@ -38,3 +39,14 @@ class TestMolfileDownloader(unittest.TestCase):
             content = file.read()
             self.assertTrue(len(content) > 0)
 
+    def test_download_hmdb_sdf(self):
+        sdfPath = '/home/ceu/research/repos/cmm_rt_shared/SDF/3D/hmdb'
+        hmdb_id = "HMDB0249629"
+        file_path = os.path.join(sdfPath, f"{hmdb_id}.sdf")
+
+        expected_fp_length = 1024
+        download_sdf_hmdb(hmdb_id,sdfPath)
+        self.assertTrue(os.path.exists(file_path))
+        with open(file_path, 'r') as file:
+            content = file.read()
+            self.assertTrue(len(content) > 0)

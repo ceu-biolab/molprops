@@ -25,6 +25,7 @@ class FileType(Enum):
     MDL = "MDL"
     SYBYL = "SYBYL"
     HYPERCHEM = "HYPERCHEM"
+    
 
 def get_file_type(mol_structure_path):
     """ 
