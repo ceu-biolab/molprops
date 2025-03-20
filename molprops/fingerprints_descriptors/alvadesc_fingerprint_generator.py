@@ -24,7 +24,7 @@ from molprops.fingerprints_descriptors.fingerprint_type import FingerprintType
 from molprops.molecular_file.file_type import get_file_type
 from molprops.fingerprints_descriptors.converters import list_of_ints_from_str
 
-def get_fingerprint(aDesc, mol_structure_path=None, smiles=None, fingerprint_type: FingerprintType = FingerprintType.ECFP, fingerprint_size = 1024):
+def get_fingerprint(aDesc: AlvaDesc, mol_structure_path: str=None, smiles: str=None, fingerprint_type: FingerprintType = FingerprintType.ECFP, fingerprint_size: int = 1024):
     """ 
         Generate the the specified type Fingerprint from a molecule structure file
 
@@ -70,7 +70,7 @@ def get_fingerprint(aDesc, mol_structure_path=None, smiles=None, fingerprint_typ
         return fingerprint
     
 
-def get_descriptors(aDesc, mol_structure_path=None, smiles=None):
+def get_descriptors(aDesc: AlvaDesc, mol_structure_path: str=None, smiles: str=None):
     """ 
         Generate all the descriptors from a molecule structure file
 

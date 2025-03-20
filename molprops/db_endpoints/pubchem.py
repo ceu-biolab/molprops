@@ -20,7 +20,7 @@
 import urllib
 import json
 
-def get_lm_id_from_inchi_key(inchi_key):
+def get_lm_id_from_inchi_key(inchi_key: str):
     """ 
         Get lm_id from inchi key
 

@@ -29,7 +29,7 @@ from rdkit.Chem import AllChem
 from rdkit.Chem.rdmolops import FastFindRings
 
 
-def get_morgan_fingerprint_rdkit(smiles):
+def get_morgan_fingerprint_rdkit(smiles: str):
     """
     Generates the Morgan fingerprint from a given SMILES string.
     

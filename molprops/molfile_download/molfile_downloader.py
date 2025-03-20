@@ -23,7 +23,7 @@ import time
 
 from molprops.molecular_file.sdf_type import SDFType
 
-def download_sdf_pubchem(pc_id, output_path, sdf_type:SDFType = SDFType.THREE_D):
+def download_sdf_pubchem(pc_id: int, output_path: str, sdf_type:SDFType = SDFType.THREE_D):
     """ 
         Get SDF file from the pubchem identifier. It retries the call 3 times if the request is not responded.
 
@@ -67,7 +67,7 @@ def download_sdf_pubchem(pc_id, output_path, sdf_type:SDFType = SDFType.THREE_D)
             file.write(content)
             return
 
-def download_sdf_hmdb(hmdb_id, output_path, sdf_type: SDFType = SDFType.THREE_D, retries=3):
+def download_sdf_hmdb(hmdb_id: str, output_path: str, sdf_type: SDFType = SDFType.THREE_D, retries=3):
     """ 
         Get SDF file from the HMDB identifier. It retries the call 3 times if the request is not responded.
 
@@ -124,10 +124,3 @@ def download_sdf_hmdb(hmdb_id, output_path, sdf_type: SDFType = SDFType.THREE_D,
                 time.sleep(2)  # Wait before retrying
             else:
                 raise Exception(f"Failed to download SDF for HMDB ID {hmdb_id}: {e}")
-
-def main():
-    download_sdf_pubchem(1, '.', SDFType.TWO_D)
-    download_sdf_hmdb("HMDB0000123", "./", SDFType.THREE_D)
-
-if __name__ == "__main__":
-    main()

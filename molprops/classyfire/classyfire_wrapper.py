@@ -25,7 +25,7 @@ import requests
 import time
 
 
-def get_ancestors_from_classyfire(inchi, inchi_key):
+def get_ancestors_from_classyfire(inchi: str, inchi_key: str):
     """
     Get the ancestors from the classyfire classification. 
     It uses the inchi key first, if not classified, inchi.
@@ -71,7 +71,7 @@ def get_ancestors_from_classyfire(inchi, inchi_key):
                 raise exception
 
 
-def is_a_lipid_from_classyfire(inchi, inchi_key):
+def is_a_lipid_from_classyfire(inchi: str, inchi_key: str):
     """ 
         check if the inchi key is a lipid according to classyfire classification. First it uses the gnps2 classyfire endpoint. If it is not there, it goes to the classyfire one. It uses inchi key first, if not classified, inchi. 
 
@@ -145,7 +145,7 @@ def is_a_lipid_from_classyfire(inchi, inchi_key):
                 raise exception
 
 
-def get_lm_id_from_inchi_key(inchi_key):
+def get_lm_id_from_inchi_key(inchi_key: str):
     """ 
         Get lm_id from inchi key
 
@@ -181,7 +181,7 @@ def get_lm_id_from_inchi_key(inchi_key):
                 lm_id = data["lm_id"]
                 return lm_id
 
-def is_in_lipidMaps(inchi_key):
+def is_in_lipidMaps(inchi_key: str):
     """ 
         check if the inchi key is present in lipidmaps
 

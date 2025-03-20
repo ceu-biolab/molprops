@@ -20,7 +20,7 @@ This module contains utility functions for converting data types, specifically f
               Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.
 """
 
-def list_of_ints_from_str(big_int_str):
+def list_of_ints_from_str(big_int_str: str):
     """
     Convert a string representation of a large integer into a list of its individual digits.
 
