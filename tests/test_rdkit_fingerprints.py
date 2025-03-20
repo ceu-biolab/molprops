@@ -25,19 +25,19 @@ from molprops.fingerprints_descriptors.rdkit_fingerprint_generator import get_mo
 
 class TestRDKitFingerprintGenerator(unittest.TestCase):
 
-    def test_valid_smiles(self):
+    def test_rdkit_from_valid_smiles(self):
         smiles = "CCO"
         expected_fp_length = 1024
         fingerprint = get_morgan_fingerprint_rdkit(smiles)
         self.assertEqual(len(fingerprint), expected_fp_length)
         self.assertTrue(isinstance(fingerprint, str))
 
-    def test_invalid_smiles(self):
+    def test_rdkit_from_invalid_smiles(self):
         smiles = "invalid_smiles"
         with self.assertRaises(ValueError):
             get_morgan_fingerprint_rdkit(smiles)
 
-    def test_empty_smiles(self):
+    def test_rdkit_from_empty_smiles(self):
         smiles = ""
         
         expected_fp_length = 1024

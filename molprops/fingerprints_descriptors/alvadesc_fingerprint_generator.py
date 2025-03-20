@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-@contents : 
+@contents : This module provides functions to generate fingerprints and descriptors for chemical structures using the AlvaDesc software.
 @project :  molprops
 @program :  CEU Mass Mediator
 @file :  classyfire_wrapper.py
@@ -22,6 +22,7 @@ from alvadesccliwrapper.alvadesc import AlvaDesc
 
 from molprops.fingerprints_descriptors.fingerprint_type import FingerprintType
 from molprops.molecular_file.file_type import get_file_type
+from molprops.fingerprints_descriptors.converters import list_of_ints_from_str
 
 def get_fingerprint(aDesc, mol_structure_path=None, smiles=None, fingerprint_type: FingerprintType = FingerprintType.ECFP, fingerprint_size = 1024):
     """ 
@@ -110,3 +111,49 @@ def get_descriptors(aDesc, mol_structure_path=None, smiles=None):
     else:
         descriptors = aDesc.get_output()[0]
         return descriptors
+    
+def generate_vector_fingerprints(aDesc, mol_structure_path = None, smiles = None):
+    """ 
+        Generate an array containing binary values of the fingerprints ECFP, MACCSFP and PFP in in that order. 
+
+        Syntax
+        ------
+          [obj] = generate_vector_fingerprints(aDesc, mol_structure_path)
+
+        Parameters
+        ----------
+            [in] aDesc (AlvaDesc instance): instance of the aDesc client
+            [in] mol_structure_path (str): File name containing the Chemical structure represented by smiles, mol, sdf, mol2 or hin.
+            [in] smiles (str): structure represented by SMILES instead of a file. If it is specified, mol_structure_path is ignored
+
+        Returns
+        -------
+          array containing the values of the fingerprints ECFP, MACCSFP and PFP
+
+        Exceptions
+        ----------
+          TypeError:
+            If the mol_structure_path is not smiles, mol, sdf, mol2 or hin
+
+          RuntimeError:
+            If aDesc gets an error calculating the fingerprints
+
+        Example
+        -------
+          >>> fingerprints_pubchem1 = generate_vector_fingerprints(AlvaDesc(ALVADESC_LOCATION),outputPath + "1.sdf")
+    """
+
+    ECFP_fingerprint = get_fingerprint(aDesc, mol_structure_path, smiles, FingerprintType.ECFP)
+    MACCSFP_fingerprint = get_fingerprint(aDesc, mol_structure_path, smiles, FingerprintType.MACCSFP)
+    PFP_fingerprint = get_fingerprint(aDesc, mol_structure_path, smiles, FingerprintType.PFP)
+
+
+    ECFP_ints_list = list_of_ints_from_str(ECFP_fingerprint)
+    fingerprints = ECFP_ints_list
+    
+    MACCSFP_ints_list = list_of_ints_from_str(MACCSFP_fingerprint)
+    fingerprints.extend(MACCSFP_ints_list)
+    
+    PFP_fingerprint = list_of_ints_from_str(PFP_fingerprint)
+    fingerprints.extend(PFP_fingerprint)
+    return fingerprints

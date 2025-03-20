@@ -2,7 +2,9 @@
 # -*- coding: utf-8 -*-
 
 """
-@contents :  This module contains the tests for the external db endpoints
+@contents : 
+This module contains utility functions for converting data types, specifically for converting a string representation of a large integer into a list of its individual digits.
+
 @project :  molprops
 @program :  CEU Mass Mediator
 @file :  classyfire_wrapper.py
@@ -18,23 +20,15 @@
               Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.
 """
 
+def list_of_ints_from_str(big_int_str):
+    """
+    Convert a string representation of a large integer into a list of its individual digits.
 
-import unittest
-import os
-from rdkit import Chem
-from molprops.db_endpoints.pubchem import get_lm_id_from_inchi_key
+    Args:
+        big_int_str (str): A string representing a large integer.
 
-class TestMolfileDownloader(unittest.TestCase):
-
-    def test_get_lm_id_from_inchi_key(self):
-        inchi_key = "RDHQFKQIGNGIED-UHFFFAOYSA-N"
-        
-        lm_id = get_lm_id_from_inchi_key(inchi_key)
-        self.assertEqual(lm_id, "LMFA07070060")
-
-    def test_get_lm_id_from_inchi_key_not_found(self):
-        inchi_key = "INVALID_INCHI_KEY"
-        with self.assertRaises(ValueError):
-            get_lm_id_from_inchi_key(inchi_key)
-
-
+    Returns:
+        list: A list of integers, each representing a digit from the input string.
+    """
+    ints_list = [int(d) for d in str(big_int_str)]
+    return ints_list
