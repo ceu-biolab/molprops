@@ -32,6 +32,9 @@ from molprops.molecular_file.file_type import get_file_type, FileType
 from molprops.fingerprints_descriptors.fingerprint_type import FingerprintType
 from molprops.molfile_download.molfile_downloader import download_sdf_pubchem, download_sdf_hmdb
 from molprops.db_endpoints.cmm import get_hmdb_id
+from molprops.molecular_file.rdkit_molfile_writer import write_mol_file
+from molprops.fingerprints_descriptors.alvadesc_fingerprint_generator import generate_vector_fingerprints, get_descriptors, get_fingerprint
+from molprops.fingerprints_descriptors.rdkit_fingerprint_generator import get_morgan_fingerprint_rdkit
 
 ALVADESC_LOCATION = '/usr/bin/alvaDescCLI'
 
@@ -239,17 +242,17 @@ def main():
             
             inchi_key = Chem.MolToInchiKey(mol)
             
-            if input_file_type == build_data.SDFType.THREE_D:
+            if input_file_type == SDFType.THREE_D:
                 try:
-                    sdf_full_path = build_data.write_3D_file(sdf_path_3D, inchi=inchi, inchi_key=inchi_key, smiles=smiles)
+                    sdf_full_path = write_mol_file(sdf_path_3D, inchi=inchi, inchi_key=inchi_key, smiles=smiles, sdf_type=SDFType.THREE_D)
                     is_3D = True
                     row[column_name_is_3D] = True
                 except ValueError as e:
-                    sdf_full_path = build_data.write_2D_file(sdf_path_2D, inchi=inchi, inchi_key=inchi_key, smiles=smiles)
+                    sdf_full_path = write_mol_file(sdf_path_2D, inchi=inchi, inchi_key=inchi_key, smiles=smiles, sdf_type=SDFType.TWO_D))
                     is_3D = False
                     row[column_name_is_3D] = False
             else: 
-                sdf_full_path = build_data.write_2D_file(sdf_path_2D, inchi=inchi, inchi_key=inchi_key, smiles=smiles)
+                sdf_full_path = write_mol_file(sdf_path_2D, inchi=inchi, inchi_key=inchi_key, smiles=smiles, sdf_type=SDFType.TWO_D))
                 is_3D = False
                 row[column_name_is_3D] = False
             
@@ -257,7 +260,7 @@ def main():
             if inchi_key in descriptors_dict:
                 descriptors = descriptors_dict[inchi_key]
             else:
-                descriptors = build_data.get_descriptors(aDesc, mol_structure_path=sdf_full_path, smiles=smiles)
+                descriptors = get_descriptors(aDesc, mol_structure_path=sdf_full_path, smiles=smiles)
                 descriptors_dict[inchi_key] = descriptors
             partialDictDescriptorsRow = row.copy()
             
@@ -276,19 +279,19 @@ def main():
                 vector_fingerprints = vector_fingerprints_dict[inchi_key]
             else:
                 
-                fingerprint_ecfp = build_data.get_fingerprint(aDesc,mol_structure_path=sdf_full_path,smiles=smiles, fingerprint_type=build_data.FingerprintType.ECFP)
+                fingerprint_ecfp = get_fingerprint(aDesc,mol_structure_path=sdf_full_path,smiles=smiles, fingerprint_type=FingerprintType.ECFP)
                 ecfp_dict[inchi_key] = fingerprint_ecfp
-                fingerprint_maccs = build_data.get_fingerprint(aDesc,mol_structure_path=sdf_full_path,smiles=smiles, fingerprint_type=build_data.FingerprintType.MACCSFP)
+                fingerprint_maccs = get_fingerprint(aDesc,mol_structure_path=sdf_full_path,smiles=smiles, fingerprint_type=FingerprintType.MACCSFP)
                 maccsfp_dict[inchi_key] = fingerprint_maccs
-                fingerprint_pfp = build_data.get_fingerprint(aDesc,mol_structure_path=sdf_full_path,smiles=smiles, fingerprint_type=build_data.FingerprintType.PFP)
+                fingerprint_pfp = get_fingerprint(aDesc,mol_structure_path=sdf_full_path,smiles=smiles, fingerprint_type=FingerprintType.PFP)
                 pfp_dict[inchi_key] = fingerprint_pfp
                 try:
-                    fingerprint_morgan = build_data.get_morgan_fingerprint_rdkit(chemicalStructureFile=sdf_full_path,smiles=smiles)
+                    fingerprint_morgan = get_morgan_fingerprint_rdkit(chemicalStructureFile=sdf_full_path,smiles=smiles)
                 except Exception as e: 
                     fingerprint_morgan = "NA"
                 morganfp_dict[inchi_key] = fingerprint_morgan
                 
-                vector_fingerprints = build_data.generate_vector_fingerprints(aDesc,mol_structure_path=sdf_full_path,smiles=smiles)
+                vector_fingerprints = generate_vector_fingerprints(aDesc,mol_structure_path=sdf_full_path,smiles=smiles)
                 vector_fingerprints_dict[inchi_key] = vector_fingerprints
             
             
