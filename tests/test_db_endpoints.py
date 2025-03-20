@@ -22,8 +22,8 @@
 import unittest
 import os
 from rdkit import Chem
+from molprops.db_endpoints.cmm import get_hmdb_id
 from molprops.db_endpoints.pubchem import get_lm_id_from_inchi_key
-
 class TestMolfileDownloader(unittest.TestCase):
 
     def test_get_lm_id_from_inchi_key(self):
@@ -37,4 +37,9 @@ class TestMolfileDownloader(unittest.TestCase):
         with self.assertRaises(ValueError):
             get_lm_id_from_inchi_key(inchi_key)
 
+    def test_get_hmdb_from_cmm(self):
+        inchi = "InChI=1S/C9H17NO4/c1-7(11)14-8(5-9(12)13)6-10(2,3)4/h8H,5-6H2,1-4H3"
+        expected_hmdb_id = "HMDB0240773"
+        hmdb_id = get_hmdb_id(inchi)
+        self.assertEqual(hmdb_id, expected_hmdb_id)
 
