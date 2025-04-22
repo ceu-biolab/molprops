@@ -1,0 +1,7 @@
+python logp_cli.py \
+  --input_path /home/ceu/research/repos/logPExtraction \
+  --input_file compounds_cas.csv \
+  --delimiter 'tab' \
+  --cas_id_column_name 'CAS NUMBER' \
+  --compound_name_id_column_name 'COMPOUND NAME' \
+  --output_path /home/ceu/research/repos/logPExtraction/

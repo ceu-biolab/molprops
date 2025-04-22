@@ -310,3 +310,5 @@ def main():
             writerFingerprintsVectorized.writerow(partialDictFP)
             
 
+if __name__ == "__main__":
+    main()
