@@ -40,19 +40,19 @@ def get_smiles_from_cas_or_compound_name(cas_number, compound_name=None):
         CASNotFoundError: If the SMILES cannot be found using the CAS number or compound name 
             across all available sources.
     """
-    try:
-        # First, try to get the SMILES from Cactus
-        return get_smiles_from_cas_cactus(cas_number)
+    # First, try to get the SMILES from PUBCHEM
+    try: 
+        return get_smiles_from_cas_pubchem(cas_number, compound_name)
     except CASNotFoundError:
-        # If Cactus fails, try to get the SMILES from PubChem
-        try: 
-            return get_smiles_from_cas_pubchem(cas_number, compound_name)
+        # If PubChem fails, try to get the SMILES from CTS
+        try:
+            return get_smiles_from_cas_cts(cas_number)
         except CASNotFoundError:
-            # If PubChem fails, try to get the SMILES from CTS
+            # If CTS fails, try to get the SMILES from CACTUS using the compound name
             try:
-                return get_smiles_from_cas_cts(cas_number)
+                return get_smiles_from_cas_cactus(cas_number)
             except CASNotFoundError:
-                # If CTS fails, try to get the SMILES from PubChem using the compound name
+                # If Cactus fails, try to get the SMILES from PubChem by name
                 try:
                     return get_smiles_from_name_pubchem(compound_name)
                 except Exception:
